@@ -95,6 +95,10 @@ func (c *Client) Query(query string) (Result, error) {
 			for idx, nodeID := range el.Nodes {
 				way.Nodes[idx] = result.getNode(nodeID)
 			}
+			for idx, coord := range el.Geometry {
+				way.Nodes[idx].Lat = coord.Lat
+				way.Nodes[idx].Lon = coord.Lon
+			}
 		case ElementTypeRelation:
 			relation := result.getRelation(el.ID)
 			*relation = Relation{
