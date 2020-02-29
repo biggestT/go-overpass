@@ -22,6 +22,11 @@ type overpassResponse struct {
 	Elements []overpassResponseElement `json:"elements"`
 }
 
+type Coord struct {
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
+}
+
 type overpassResponseElement struct {
 	Type      ElementType `json:"type"`
 	ID        int64       `json:"id"`
@@ -33,6 +38,7 @@ type overpassResponseElement struct {
 	User      string      `json:"user"`
 	UID       int64       `json:"uid"`
 	Nodes     []int64     `json:"nodes"`
+	Geometry  []Coord     `json:"geometry"`
 	Members   []struct {
 		Type ElementType `json:"type"`
 		Ref  int64       `json:"ref"`
