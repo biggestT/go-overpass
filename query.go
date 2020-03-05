@@ -28,17 +28,18 @@ type Coord struct {
 }
 
 type overpassResponseElement struct {
-	Type      ElementType `json:"type"`
-	ID        int64       `json:"id"`
-	Lat       float64     `json:"lat"`
-	Lon       float64     `json:"lon"`
-	Timestamp *time.Time  `json:"timestamp"`
-	Version   int64       `json:"version"`
-	Changeset int64       `json:"changeset"`
-	User      string      `json:"user"`
-	UID       int64       `json:"uid"`
-	Nodes     []int64     `json:"nodes"`
-	Geometry  []Coord     `json:"geometry"`
+	Type      ElementType        `json:"type"`
+	ID        int64              `json:"id"`
+	Bounds    map[string]float64 `json:"bounds"`
+	Lat       float64            `json:"lat"`
+	Lon       float64            `json:"lon"`
+	Timestamp *time.Time         `json:"timestamp"`
+	Version   int64              `json:"version"`
+	Changeset int64              `json:"changeset"`
+	User      string             `json:"user"`
+	UID       int64              `json:"uid"`
+	Nodes     []int64            `json:"nodes"`
+	Geometry  []Coord            `json:"geometry"`
 	Members   []struct {
 		Type ElementType `json:"type"`
 		Ref  int64       `json:"ref"`
@@ -99,6 +100,7 @@ func (c *Client) Query(query string) (Result, error) {
 				way.Nodes[idx].Lat = coord.Lat
 				way.Nodes[idx].Lon = coord.Lon
 			}
+			way.Bounds = el.Bounds
 		case ElementTypeRelation:
 			relation := result.getRelation(el.ID)
 			*relation = Relation{

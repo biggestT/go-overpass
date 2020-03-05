@@ -33,7 +33,8 @@ type Node struct {
 // Way represents OSM way type.
 type Way struct {
 	Meta
-	Nodes []*Node
+	Nodes  []*Node
+	Bounds map[string]float64
 }
 
 // Relation represents OSM relation type.
